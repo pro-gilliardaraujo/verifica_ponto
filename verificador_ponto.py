@@ -413,26 +413,8 @@ def testar_busca_funcionarios(driver, df, coluna_periodo):
                     
                     # Abordagem direta para interagir com o campo de busca usando seu ID
                     try:
-                        # 1. Localizar o campo de busca diretamente pelo ID
+                        # Localizar o campo de input diretamente pelo ID
                         print("Localizando campo de busca pelo ID 'funcionarioId'...")
-                        
-                        # Primeiro limpar qualquer seleção existente
-                        try:
-                            clear_button = driver.find_element(By.CSS_SELECTOR, '.Select-clear-zone')
-                            clear_button.click()
-                            print("Limpou seleção existente")
-                            time.sleep(1)
-                        except:
-                            print("Não foi possível limpar seleção existente ou não havia seleção")
-                        
-                        # Localizar o elemento de controle Select e clicar nele para ativar o input
-                        try:
-                            select_control = driver.find_element(By.CSS_SELECTOR, '.Select-control')
-                            select_control.click()
-                            print("Clicou no controle Select para ativar o input")
-                            time.sleep(1)
-                        except Exception as e:
-                            print(f"Erro ao clicar no controle Select: {e}")
                         
                         # Localizar o campo de input diretamente pelo ID
                         input_field = WebDriverWait(driver, 10).until(
@@ -440,23 +422,22 @@ def testar_busca_funcionarios(driver, df, coluna_periodo):
                         )
                         print("Encontrou o campo de input pelo ID")
                         
-                        # Focar no campo de input
+                        # Focar no campo de input usando JavaScript
                         driver.execute_script("arguments[0].focus();", input_field)
                         print("Focou no campo de input")
                         time.sleep(0.5)
                         
-                        # Limpar qualquer texto existente
-                        input_field.clear()
+                        # Limpar qualquer texto existente usando JavaScript
                         driver.execute_script("arguments[0].value = '';", input_field)
                         print("Limpou o campo de input")
                         time.sleep(0.5)
                         
-                        # 2. Inserir o nome completo do funcionário diretamente
+                        # Inserir o nome completo do funcionário diretamente
                         print(f"Inserindo nome completo: {nome_funcionario}")
                         input_field.send_keys(nome_funcionario)
                         time.sleep(0.5)  # Pequena pausa após inserção
                         
-                        # Garantir que o React registrou o valor
+                        # Garantir que o React registrou o valor usando JavaScript
                         driver.execute_script("""
                             var input = arguments[0];
                             var event = new Event('input', { bubbles: true });
@@ -465,15 +446,15 @@ def testar_busca_funcionarios(driver, df, coluna_periodo):
                             input.dispatchEvent(event2);
                         """, input_field)
                         
-                        time.sleep(1)
+                        time.sleep(0.5)
                         
-                        # 3. Pressionar Enter
+                        # Pressionar Enter
                         input_field.send_keys(Keys.RETURN)
                         print("Enter pressionado")
                         
                         # Aguardar para ver o resultado
                         print(f"Aguardando resultados para {nome_funcionario}...")
-                        time.sleep(3)
+                        time.sleep(2)
                         
                         # Capturar screenshot para verificação
                         screenshot_file = f"busca_{nome_funcionario.replace(' ', '_')}.png"
