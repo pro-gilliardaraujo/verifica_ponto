@@ -384,10 +384,8 @@ def testar_busca_funcionarios(driver, df, coluna_periodo):
         
         # Percorrer cada linha do DataFrame
         for index, row in df.iterrows():
-            # Limitamos a testar apenas 5 funcionários para o teste inicial
-            if testados >= 5:
-                print("\nLimite de 5 funcionários atingido para o teste inicial.")
-                break
+            # Não limita mais a 5 funcionários
+            # Removida a limitação anterior
                 
             try:
                 # Verificar se a coluna do período está vazia
@@ -403,12 +401,12 @@ def testar_busca_funcionarios(driver, df, coluna_periodo):
                     if funcao_funcionario.upper() in [f.upper() for f in funcoes_ignorar]:
                         ignorados += 1
                         print(f"\n{'-'*50}")
-                        print(f"Ignorando funcionário: {nome_funcionario} (Código: {codigo_funcionario})")
+                        print(f"IGNORADO: {nome_funcionario} (Código: {codigo_funcionario})")
                         print(f"Função ignorada: {funcao_funcionario}")
                         continue
                     
                     print(f"\n{'-'*50}")
-                    print(f"Testando busca para: {nome_funcionario} (Código: {codigo_funcionario}, Função: {funcao_funcionario})")
+                    print(f"ANALISADO: {nome_funcionario} (Código: {codigo_funcionario}, Função: {funcao_funcionario})")
                     
                     # Aguardar um pouco para garantir que a página está pronta
                     time.sleep(2)
