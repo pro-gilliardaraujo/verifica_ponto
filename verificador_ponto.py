@@ -453,11 +453,10 @@ def testar_busca_funcionarios(driver, df, coluna_periodo):
                         print("Limpou o campo de input")
                         time.sleep(0.5)
                         
-                        # 2. Digitar o nome do funcionário caractere por caractere
-                        print(f"Digitando nome: {nome_funcionario}")
-                        for char in nome_funcionario:
-                            input_field.send_keys(char)
-                            time.sleep(0.1)  # Pequena pausa entre os caracteres
+                        # 2. Inserir o nome completo do funcionário diretamente
+                        print(f"Inserindo nome completo: {nome_funcionario}")
+                        input_field.send_keys(nome_funcionario)
+                        time.sleep(0.5)  # Pequena pausa após inserção
                         
                         # Garantir que o React registrou o valor
                         driver.execute_script("""
